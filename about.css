@@ -1,0 +1,90 @@
+.navbar-light .navbar-brand {
+  color: black;
+  font-size: 25px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.navbar-light .navbar-nav .nav-link,
+.navbar-toggler {
+  color: black;
+  padding: 0.2rem 1rem;
+}
+
+.navbar-toggler {
+  background: whitesmoke;
+  padding: 1px 5px;
+  font-size: 18px;
+  line-height: 0.3;
+}
+
+.navbar-nav {
+  padding: 15px 0;
+  text-align: left;
+}
+
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link:hover {
+  color: black;
+}
+
+.bg-navbar {
+  background-color: white; /* Background color for the navbar */
+}
+
+.user_option {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.user_option a img {
+  min-width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+.user_option a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #ffffff;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.about_section .row {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.about_section .detail-box p {
+  margin-top: 20px;
+}
+
+.about_section .detail-box a {
+  display: inline-block;
+  padding: 7px 25px;
+  background-color: #252525;
+  color: #ffffff;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  margin-top: 35px;
+}
+
+.about_section .detail-box a:hover {
+  background-color: transparent;
+  border-color: #252525;
+  color: #252525;
+}
+
+.about_section .img-box img {
+  width: 100%;
+}

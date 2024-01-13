@@ -1,0 +1,40 @@
+{
+  "data": [
+    {
+      "firstname": "",
+      "lastname": "",
+      "phonenumber": "",
+      "emailaddress": "",
+      "cityname": "\n                      Abuja\n                      Lagos\n                      Maiduguri\n                    ",
+      "home": "",
+      "postalCode": "",
+      "zipcode": "",
+      "messages": "",
+      "id": 1
+    },
+    {
+      "firstname": "",
+      "lastname": "",
+      "phonenumber": "",
+      "emailaddress": "",
+      "cityname": "\n                      Abuja\n                      Lagos\n                      Maiduguri\n                    ",
+      "home": "",
+      "postalCode": "",
+      "zipcode": "",
+      "messages": "",
+      "id": 2
+    },
+    {
+      "firstname": "",
+      "lastname": "",
+      "phonenumber": "+234 ",
+      "emailaddress": "",
+      "cityname": "1",
+      "home": "",
+      "postalCode": "",
+      "zipcode": "",
+      "messages": "",
+      "id": 3
+    }
+  ]
+}
