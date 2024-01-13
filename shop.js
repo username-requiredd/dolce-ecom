@@ -30,14 +30,20 @@ function renderSkeleton() {
 async function generateCart(url) {
   try {
     const request = await fetch(url);
+
     if (!request.ok) {
-      throw new Error("error getting data!");
+      throw new Error(
+        `Failed to fetch data from ${url}. Status: ${request.status}`
+      );
     }
+
     return await request.json();
   } catch (error) {
-    errorMessage(error.message);
+    console.error("Error in generateCart:", error);
+    throw new Error(`Error in generateCart: ${error.message}`);
   }
 }
+
 // rendering products dynamically
 async function renderShop(items) {
   items ? renderSkeleton() : errorMessage("Fail to fetch data");
@@ -45,6 +51,11 @@ async function renderShop(items) {
   if (!data) {
     errorMessage("Fail to fetch data");
     throw new Error("error getting data");
+  }
+  // if no matching search
+  if (data.products.length === 0) {
+    products.innerHTML = '<p class="no-match">No matching products found.</p>';
+    return;
   }
   products.innerHTML = "";
   data.products.forEach((item) => {
@@ -64,7 +75,7 @@ async function renderShop(items) {
           />
         </a>
         <ul class="social">
-          <li>
+          <li class="view" id=${id}>
             <a data-tip="Quick View"
            ><i class="fa fa-eye view" id=${id}  ></i
             ></a>
@@ -74,7 +85,7 @@ async function renderShop(items) {
               ><i class=" wish fa fa-shopping-bag " id=${id}></i
             ></a>
           </li>
-          <li>
+          <li class="view" id=${id} >
             <a  data-tip="Add to Cart"
               ><i class=" cart fa fa-shopping-cart"  id=${id}></i
             ></a>
@@ -239,17 +250,25 @@ filter.addEventListener("click", () => {
   sidebar.classList.toggle("d-block");
 });
 
+// search btn
 const searchButton = document.getElementById("searchbtn");
 const search = document.getElementById("search");
-// search
+
+const searchProd = async () => {
+  try {
+    const url = `https://dummyjson.com/products/search?q=${search.value}`;
+    return await renderShop(generateCart(url));
+  } catch (err) {
+    errorMessage(err.message);
+  }
+};
+
+search.addEventListener("keyup", (event) => {
+  if (event.keyCode === 13) {
+    searchProd();
+  }
+});
+
 searchButton.addEventListener("click", () => {
-  const searchProd = async () => {
-    try {
-      const url = `https://dummyjson.com/products/search?q=${search.value}`;
-      return await renderShop(generateCart(url));
-    } catch (err) {
-      errorMessage(err.message);
-    }
-  };
   searchProd();
 });
