@@ -68,17 +68,9 @@ if (storedData) {
       </p>
 
       <div class="row">
-        <dt class="col-3">Type:</dt>
-        <dd class="col-9"></dd>
 
-        <dt class="col-3">Color</dt>
-        <dd class="col-9"></dd>
-
-        <dt class="col-3">Material</dt>
-        <dd class="col-9"></dd>
-
-        <dt class="col-3">Brand</dt>
-        <dd class="col-9">  ${parsedData.brand}</dd>
+        <dt class="col-3">Brand: </dt>
+        <dd class="col-9">${parsedData.brand}</dd>
       </div>
 
       <hr />
@@ -97,13 +89,13 @@ if (storedData) {
           <label class="mb-2 d-block">Quantity</label>
           <div class="input-group mb-3" style="width: 170px;">
             <button class="btn btn-white reduce border border-secondary px-3" id="btn-minus" type="button" id="button-addon1" data-mdb-ripple-color="dark">
-              <i class="fas fa-minus"></i>
+              <i class="fas fa-minus reduce"></i>
             </button>
             <span class="text-center d-flex align-items-center justify-content-center border border" id="val" style="width: 50px; height: 50px;"
             >1 </span>
 
             <button class="btn btn-white increase border border-secondary px-3" id="btn-plus" type="button" id="button-addon2" data-mdb-ripple-color="dark">
-              <i class="fas fa-plus"></i>
+              <i class="fas fa-plus increase"></i>
             </button>
           </div>
         </div>
@@ -130,7 +122,7 @@ if (storedData) {
     // updating cart count
     const update = () => {
       const cartCount = document.querySelector("#crt-cnt");
-      const item = localStorage.getItem("cart") || 0;
+      const item = localStorage.getItem("cart") || [];
       const savedItem = JSON.parse(item);
       cartCount.innerHTML = savedItem
         .map((x) => x.item)
@@ -359,7 +351,10 @@ if (storedData) {
   let cat = localStorage.getItem("products");
   let parsedCat = JSON.parse(cat);
   let category = parsedCat.category;
-  const limit = 4;
+  let displayedProductID = parsedCat.id;
+  console.log("selected product id", displayedProductID);
+  console.log(category);
+  const limit = 5;
   let id = parsedCat.id;
 
   // loading realated products skeleton
@@ -391,6 +386,7 @@ if (storedData) {
         throw new Error("Error getting data!");
       }
       const data = await res.json();
+      console.log(data.products.map((x) => x.id));
       return data;
     } catch (err) {
       console.log("Error!", err.message);
@@ -398,7 +394,7 @@ if (storedData) {
     }
   };
   // displaying related products
-  const displayRelatedProducts = async () => {
+  const displayRelatedProducts = async (proId) => {
     renderSkeleton();
     const req = await relatedProducts();
     if (!req) {
@@ -406,8 +402,11 @@ if (storedData) {
     }
     rel.innerHTML = "";
     console.log(req.products);
-    req.products.forEach((x) => {
-      let { images, title, id, price, thumbnail } = x;
+
+    const similarProducts = req.products.filter((x) => x.id !== proId);
+
+    console.log(similarProducts);
+    similarProducts.map(({ title, id, price, thumbnail }) => {
       rel.innerHTML += `
       <div class="d-flex mb-3 view" id= "${id}">
       <div class="me-3">
@@ -428,12 +427,12 @@ if (storedData) {
       `;
     });
   };
-  displayRelatedProducts();
+  displayRelatedProducts(displayedProductID);
   // Displaying a clicked product
   rel.addEventListener("click", async (e) => {
     if (e.target.classList.contains("view")) {
-      id = e.target.id;
-      console.log(e.target);
+      id = parseInt(e.target.id);
+      console.log(id);
       try {
         const data = await fetchProductDetails(id);
         displayProductDetails(data);
@@ -442,6 +441,7 @@ if (storedData) {
           top: 0,
           behavior: "smooth",
         });
+        displayRelatedProducts(id);
       } catch (error) {
         console.error("Error:", error.message);
       }

@@ -90,7 +90,16 @@ Submit.addEventListener("click", () => {
       };
       console.log(orderSummary);
       localStorage.setItem("order", JSON.stringify(orderSummary));
+
       window.location.href = "order.html";
+      const checkoutItems = JSON.parse(localStorage.getItem("checkout"));
+      const checkoutItemsIds = checkoutItems.map((prod) => prod.product.id);
+      localStorage.removeItem("checkboxState");
+      const cart = JSON.parse(localStorage.getItem("cart"));
+      const removedItems = cart.filter(
+        (item) => !checkoutItemsIds.includes(item.id)
+      );
+      localStorage.setItem("cart", JSON.stringify(removedItems));
     }, 3000);
   }
 });

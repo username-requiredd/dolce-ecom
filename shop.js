@@ -238,3 +238,18 @@ filter.addEventListener("click", () => {
   var sidebar = document.getElementById("sidebar");
   sidebar.classList.toggle("d-block");
 });
+
+const searchButton = document.getElementById("searchbtn");
+const search = document.getElementById("search");
+// search
+searchButton.addEventListener("click", () => {
+  const searchProd = async () => {
+    try {
+      const url = `https://dummyjson.com/products/search?q=${search.value}`;
+      return await renderShop(generateCart(url));
+    } catch (err) {
+      errorMessage(err.message);
+    }
+  };
+  searchProd();
+});

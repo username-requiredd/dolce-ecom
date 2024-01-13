@@ -34,17 +34,27 @@ function generateCart(x) {
     const checkboxId = `checkbox_${id}`;
     const isChecked = getCheckboxState(checkboxId);
     cartContainer.innerHTML += `
-    <div class="table-responsive" id="${id}">
+    <div class="table-responsive  " id="${id}">
     <table class="table shoping-cart-table">
       <tbody>
         <tr>
           <td width="90">
+          <span> 
+            <input
+          type="checkbox"
+          id="${checkboxId}"
+          class="form-check-input border border-3 border-primary"
+          ${isChecked ? "checked" : ""}
+        />
+        </span>
+
             <div
               class="cart-product-imitation"
               style="max-width: 80px"
             >
               <img src="${images[0]}" alt="" />
             </div>
+            
           </td>
           <td class="desc">
             <h3>
@@ -54,21 +64,11 @@ function generateCart(x) {
             </h3>
             <p class="small">
             </p>
-            <dl class="small m-b-none">
-              <dt>Description lists</dt>
-              <dd>
-              ${description}
-              </dd>
-            </dl>
 
-            <div class="m-t-sm">
-              <a href="#" class="text-muted"
-                ><i class="fa fa-gift"></i> Add gift package</a
-              >
               |
               <a href="#" class="text-muted remove"
               id="${id}"
-                ><i class="fa fa-trash" ></i> Remove item</a
+                ><i class="fa fa-trash" id="${id}" ></i> Remove item</a
               >
             </div>
           </td>
@@ -106,14 +106,6 @@ function generateCart(x) {
             </div>
           </td>
           <td>
-          </td>
-          <td>
-            <input
-              type="checkbox"
-              id="${checkboxId}"
-              class="form-check-input"
-              ${isChecked ? "checked" : ""}
-            />
           </td>
         </tr>
       </tbody>
@@ -240,6 +232,6 @@ checkBtn.addEventListener("click", () => {
   if (checkoutItem.length === 0) {
     alert("select item to checkout!");
   } else {
-    window.location.href = "checkout.html";
+    window.location.href = "signup.html";
   }
 });
